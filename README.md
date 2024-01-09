@@ -2,20 +2,19 @@
 
 * ws
 * http
-* express
-* Fleck (for Visual Studio Project)
+* fs
+* WebSocketSharp
 
 ## Setup node
 
 ```
-node install express
 node install ws
 ```
 
 ## Setup Visual Studio
 
 ```
-add Fleck from NuGet
+add WebSocketSharp-netstandard from NuGet
 ```
 
 ## Launch
