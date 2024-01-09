@@ -1,2 +1,2 @@
 # screen-share
-simple screen share using C# and js
+how to start
