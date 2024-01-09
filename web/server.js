@@ -1,24 +1,44 @@
-const express = require('express');
-const http = require('http');
 const WebSocket = require('ws');
-const app = express();
+const http = require('http');
+const fs = require('fs');
 
-const server = http.createServer(app);
+const server = http.createServer((req, res) => {
+    // static files if reuired
+    if (req.url === '/') {
+        fs.readFile('index.html', 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.write('Not Found');
+                res.end();
+                return;
+            }
+
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(data);
+            res.end();
+        });
+    }
+});
 
 const wss = new WebSocket.Server({ server });
-
-app.use(express.static('public'));
 
 wss.on('connection', (ws) => {
     console.log('WebSocket connected');
 
     ws.on('message', (message) => {
-        const binaryData = Buffer.from(message, 'base64');
-        
-        ws.send(binaryData);
+        wss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(message);
+            }
+        });
+    });
+
+    ws.on('close', () => {
+        console.log('WebSocket disconnected');
     });
 });
 
-server.listen(3000, () => {
-    console.log(`HTTP and WebSocket servers are running on port ${server.address().port}`);
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`WebSocket server is running on port ${PORT}`);
 });
