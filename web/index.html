@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <img id="screenshot" alt="Screen Capture">
+
+    <script>
+        const img = document.getElementById('screenshot');
+        const socket = new WebSocket('ws://127.0.0.1:3000'); 
+
+        socket.onopen = () => {
+            console.log('Successfully connected');
+        };
+
+        socket.onmessage = (event) => {
+            const imageUrl = "data:image/png;base64," + event.data;
+            img.src = imageUrl;
+        };
+
+        socket.onclose = () => {
+            console.log('Closed');
+        };
+    </script>
+</body>
+</html>
