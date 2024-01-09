@@ -1,13 +1,27 @@
-# requirements
+# Requirements
 
 * ws
 * http
 * express
+* Fleck (for Visual Studio Project)
 
-# launch
+## Setup node
 
 ```
-start screen-share.exe
-start srever.js (node srever.js)
-open index.html
+node install express
+node install ws
 ```
+
+## Setup Visual Studio
+
+```
+add Fleck from NuGet
+```
+
+## Launch
+
+```
+.\screen-share.exe
+node server.exe
+```
+now you can open index.html
