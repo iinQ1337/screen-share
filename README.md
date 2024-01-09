@@ -1,2 +1,7 @@
-# screen-share
-how to start
+# requirements
+```
+ws
+http
+express
+```
+
