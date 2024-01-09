@@ -22,6 +22,6 @@ add Fleck from NuGet
 
 ```
 .\screen-share.exe
-node server.exe
+node server.js
 ```
 now you can open index.html
